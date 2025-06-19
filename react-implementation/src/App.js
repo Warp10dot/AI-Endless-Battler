@@ -26,7 +26,7 @@ function App() {
 
   const handleSend = async () => {
     try {
-      const response = await fetch('/api/send', {
+      const response = await fetch('https://ai-endless-battler-server.onrender.com/api/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: [input, defender, log] }),
