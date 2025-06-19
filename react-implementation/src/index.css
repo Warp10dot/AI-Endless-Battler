@@ -1,0 +1,108 @@
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+}
+
+h1 {
+  text-align: center !important;
+  text-shadow: 2px 2px 4px #aaa !important;
+  margin: 5px 0 !important;  
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+h2 {
+  color: black !important;
+  text-align: center !important;
+  text-shadow: 2px 2px 4px #aaa !important;
+  font-size: 20px !important;
+  margin: 2px !important;
+  max-width: 800px;           /* Set your desired width */
+  word-wrap: break-word;      /* Break long words if needed */
+  overflow-wrap: break-word;  /* Ensure wrapping in all browsers */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  white-space: normal !important; /* Allow wrapping */
+    justify-content: center !important;
+  align-items: center !important;
+}
+
+h3 {
+  color: black;
+  text-align: center !important;
+  text-shadow: 2px 2px 4px #aaa !important;
+  font-size: 20px !important;
+  margin: 2px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+h4 {
+  color: black !important;
+  text-align: center !important;
+  text-shadow: 2px 2px 4px #aaa !important;
+  font-size: 20px !important;
+  margin: 3px 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  max-width: 800px;           /* Limit width */
+  word-wrap: break-word;      /* Break long words if needed */
+  overflow-wrap: break-word;  /* Ensure wrapping in all browsers */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  white-space: normal !important; /* Allow wrapping */
+}
+
+h5 {
+  color: black !important;
+  text-align: center !important;
+  text-shadow: 2px 2px 4px #aaa !important;
+  font-size: 120px !important;
+  margin: 0px !important;
+    justify-content: center !important;
+  align-items: center !important;
+}
+
+p {
+    color: darkgreen;
+    font-size: 18px;
+    text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;      /* Stack children vertically */
+  justify-content: center;     /* Center vertically */
+  align-items: center;         /* Center horizontally */
+  text-align: center;
+  margin: 0 auto;
+  min-height: 80vh;           /* Take full viewport height */
+}
+
+/* Style for the button */
+button {
+  padding: 5px 10px;
+  margin: 5px auto;  /* Center the button horizontally */
+  display: block;    /* Make the button a block element */
+}
+
+/* Style for the text box (input field) */
+input[type="text"] {
+  padding: 0px;
+  margin: 10px auto;  /* Center the text box horizontally */
+  width: 250px;       /* Set a fixed width */
+  display: block;    /* Make the input a block element */
+  text-align: center; /* Center the text inside the input */
+}
+
+textarea{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 20px;
+  width: 250px;
+}
+
+/* If you want all h4 inside .container to inherit styles, use .container h4 */

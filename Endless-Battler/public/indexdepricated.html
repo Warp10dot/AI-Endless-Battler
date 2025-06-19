@@ -1,0 +1,45 @@
+<!-- save_message.html -->
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<head>
+<title>Endless Battle</title>
+</head>
+<body>
+    <div class="container">
+    <h1 id="heading">What defeats </h1>
+    <h4>🪱</h4>
+    <form id="battleForm" action="/submit" method="post">
+        <textarea name="message" rows="4" cols="50" required></textarea><br>
+        <input type="hidden" name="defender" id="defenderInput">
+        <button type="submit">Battle!</button>
+    </form>
+    </div>
+    <script>
+        let defender = "a Measly Worm";
+
+
+        document.getElementById('heading').textContent += defender + "?";
+        document.getElementById('defenderInput').value = defender;
+
+        // Disable inputs on submit
+        document.getElementById('battleForm').addEventListener('submit', function() {
+            this.querySelector('button[type="submit"]').disabled = true;
+        });
+
+        // Allow only alphabet characters and spaces in textarea, and limit to 20 characters
+        const textarea = document.querySelector('textarea[name="message"]');
+        textarea.addEventListener('input', function(e) {
+            // Remove non-alphabet and non-space characters
+            this.value = this.value.replace(/[^a-zA-Z ]/g, '');
+            // Limit to 20 characters
+            if (this.value.length > 20) {
+            this.value = this.value.slice(0, 20);
+
+            res.set('Content-Type', 'text/html; charset=utf-8');
+            }
+        });
+    </script>
+</body>
+</html>
