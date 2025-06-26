@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 
+//API Key should be set in the environment variable API_KEY
 const openAIKey = process.env.API_KEY
 
 const openai = new OpenAI({
