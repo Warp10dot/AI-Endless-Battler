@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(express.json());
 
-app.post('https://ai-endless-battler.onrender.com/api/send', (req, res) => {
+app.post('ai-endless-battler.onrender.com/api/send', (req, res) => {
     const message = (req.body.message[0]);
     const defender = (req.body.message[1]);
     const log = (req.body.message[2] || '');
@@ -37,12 +37,12 @@ app.post('https://ai-endless-battler.onrender.com/api/send', (req, res) => {
         console.error('Error processing message:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     });
-});
+})
 
 //Start server
 app.listen(PORT, () => {
     console.log(`Server running`);
-});
+})
 
 // app.listen(PORT, '0.0.0.0', () => {
 //   console.log('Server is running');

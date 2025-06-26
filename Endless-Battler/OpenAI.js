@@ -1,11 +1,10 @@
-import OpenAI from "openai";
+import OpenAI from "openai"
 
-//API Key should be set in the environment variable API_KEY
-const openAIKey = process.env.API_KEY
+const openAIKey = "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"
 
 const openai = new OpenAI({
     apiKey: openAIKey,
-});
+})
 
 export async function determineWinner(attacker, defender) {
     try {
