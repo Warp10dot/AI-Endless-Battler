@@ -1,6 +1,6 @@
 import OpenAI from "openai"
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '../Endless-Battler/.env'});
 
 const openAIKey = process.env.OPENAI_API_KEY;
 
