@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(express.json());
 
-app.post('api/send', (req, res) => {
+app.post('https://ai-endless-battler.onrender.com/api/send', (req, res) => {
     const message = (req.body.message[0]);
     const defender = (req.body.message[1]);
     const log = (req.body.message[2] || '');
