@@ -15,6 +15,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const { checkResult } = require('./battler.js'); // Import the checkResult function
+require('dotenv').config();
 
 const app = express();
 const PORT = 30000;
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(express.json());
 
-app.post('ai-endless-battler.onrender.com/api/send', (req, res) => {
+app.post('api/send', (req, res) => {
     const message = (req.body.message[0]);
     const defender = (req.body.message[1]);
     const log = (req.body.message[2] || '');
