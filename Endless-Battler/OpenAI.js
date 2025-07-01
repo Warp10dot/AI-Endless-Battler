@@ -1,3 +1,6 @@
+// Handles the OpenAI API calls for determining the winner of battles, providing victory reasons, and selecting emojis. All done with the GPT-4o-mini model.
+// Requires the OpenAI API key to be set in the environment variables as OPENAI_API_KEY.
+
 import OpenAI from "openai"
 import dotenv from 'dotenv';
 dotenv.config();
@@ -8,6 +11,8 @@ const openai = new OpenAI({
     apiKey: openAIKey,
 })
 
+// Determine the winner of a battle between two participants. 
+// "Attacker" is the name of the participant that the user put in, the "Defender" is either the starting foe or the last winner.
 export async function determineWinner(attacker, defender) {
     try {
     const response = await openai.responses.create({
@@ -28,6 +33,8 @@ export async function determineWinner(attacker, defender) {
     }
 }
 
+// Provides a reason for the victory. Is called only *after* the determineWinner function. 
+// The Winner must be passed to this function otherwise the AI may decide on a different winner than it did in the determineWinner function.
 export async function victoryReason(attacker, defender, winner) {
     try {
     const response = await openai.responses.create({
@@ -44,6 +51,7 @@ export async function victoryReason(attacker, defender, winner) {
     }
 }
 
+// Choose an emoji that best represents the winner of the battle
 export async function getEmoji(prompt) {
     try {
     const response = await openai.responses.create({

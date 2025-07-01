@@ -1,3 +1,8 @@
+// Handles the primary logic for checking the result of battles between characters.
+// It sanitizes the input, checks if the outcome already exists in the database, and if not, it determines the winner using OpenAI's API.
+// SQL Server is also managed here. 
+// The SQLite database is very small so it is included in the same file, but probably should be separated in the future, especially if the database grows larger (ie a high score table)
+
 module.exports = { checkResult };
 
 const sqlite3 = require('sqlite3').verbose();
@@ -17,7 +22,11 @@ db.serialize(() => {
     );`);
 });
 
-
+// Primary function to check the result of a battle between two characters
+// It sanitizes the input, checks if the outcome already exists in the database, and if not, it determines the winner using OpenAI's API.
+// It then formats the result and returns it for further use, such as displaying to the user
+// log is from the front end and is not a list, but a string that is used to display the result of the battle.
+// Attacker is what the user put in, and defender is either the starting foe or the last winner.
 async function checkResult(attacker, defender, log){
     try {
         //Sanitizing input
@@ -82,34 +91,9 @@ async function checkResult(attacker, defender, log){
     }
 };
 
-function checkIfOutcomeExists(key) {
-    return new Promise((resolve, reject) => {
-        db.get("SELECT * FROM messages WHERE id = ?", [key], (err, row) => {
-            if (err) {
-                console.error(err.message);
-                reject(err);
-                return;
-            }
-            if(row){ resolve(true); } else { resolve(false); }
-        });
-    });
-}
-
-
-// Function to get result from the database
-function getResult(key) {
-    return new Promise((resolve, reject) => {
-        db.get("SELECT * FROM messages WHERE id = ?", [key], (err, row) => {
-            if (err) {
-                console.error("Result not in Database or other issue: " + err.message);
-                reject(err);
-                return;
-            }
-            resolve(row);
-        });
-    });
-}
-
+// Function to format the number of times a battle has been fought, returns a string which is used to tell the user how many times the battle has been fought
+// numberOfTimes is the number of times the battle has been fought
+// win is a boolean that indicates if the user won or lost
 function numberText(numberOfTimes, win, attacker, defender) { 
 
     attacker = attacker.replace(/\b\w/g, c => c.toUpperCase());
@@ -134,6 +118,8 @@ function numberText(numberOfTimes, win, attacker, defender) {
     }
 }
 
+// Function to format the winner text, returns a string which is used to tell the user who won the battle
+// Future improvement: Add a list of different ways to say the same thing, so that it is not always the same text 
 function winnerText(attacker, defender, win) {
     if( win ) {
         return `${attacker.replace(/\b\w/g, c => c.toUpperCase())} defeats ${defender.replace(/\b\w/g, c => c.toUpperCase())}`; 
@@ -143,7 +129,10 @@ function winnerText(attacker, defender, win) {
 }   
 
 
+// Database functions
+
 // Function to insert result into the database
+// If the result already exists, it will update the number of times it has been fought
 function insertResult(key, winner, numberOfTimes, victoryReason, emoji) {
    db.run(`INSERT INTO messages (id, winner, numberOfTimes, victoryReason, emoji)
    VALUES (?, ?, ?, ?, ?)
@@ -160,4 +149,33 @@ function insertResult(key, winner, numberOfTimes, victoryReason, emoji) {
             console.log(`Inserted row with id ${this.lastID}`);
         }
     }); 
+}
+
+// Function to get result from the database
+function getResult(key) {
+    return new Promise((resolve, reject) => {
+        db.get("SELECT * FROM messages WHERE id = ?", [key], (err, row) => {
+            if (err) {
+                console.error("Result not in Database or other issue: " + err.message);
+                reject(err);
+                return;
+            }
+            resolve(row);
+        });
+    });
+}
+
+// Function to check if an outcome already exists in the database
+// Returns true if it exists, false if it does not
+function checkIfOutcomeExists(key) {
+    return new Promise((resolve, reject) => {
+        db.get("SELECT * FROM messages WHERE id = ?", [key], (err, row) => {
+            if (err) {
+                console.error(err.message);
+                reject(err);
+                return;
+            }
+            if(row){ resolve(true); } else { resolve(false); }
+        });
+    });
 }
